@@ -29,12 +29,5 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
-  ],
-  devtool: 'eval-source-map',
-  devServer: {
-    host: '0.0.0.0',
-    port: 9100,
-    historyApiFallback: true,
-    noInfo: true
-  }
+  ]
 }

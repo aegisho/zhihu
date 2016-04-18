@@ -1,15 +1,15 @@
 import React from 'react'
 import { Route, Router } from 'react-router'
 
-import Storties from './components/Storty/Storties'
+import Storties from './components/Storty/Storties/index'
 import Storty from './components/Storty/Storty'
 import Comment from './components/Comment/Comment'
 
 export default (
   <Route>
     <Router path="/" component={Storties} />
-    <Router path="Storty/:id" component={Storty} />
-    <Router path="Comment/:id" component={Comment} />
+    <Router path="storty/:id" component={Storty} />
+    <Router path="comment/:id" component={Comment} />
   </Route>
 )
 

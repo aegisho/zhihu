@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "zhihu",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --config webpack.config.js"
+    "server": "node ./server",
+    "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.config.js"
   },
   "author": "yjj",
   "license": "MIT",

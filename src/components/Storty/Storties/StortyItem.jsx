@@ -1,19 +1,21 @@
 import React from 'react'
 
-class Storty extends React.Component {
+import ProxyImage from '../../Common/ProxyImage'
+
+class StortyItem extends React.Component {
   render() {
     return (
       <article>
         <h2>{this.props.title}</h2>
-        <image src={this.props.image} />
+        <ProxyImage src={this.props.image} />
       </article>
     )
   }
 }
 
-Storty.propTypes = {
+StortyItem.propTypes = {
   title: React.PropTypes.string,
   image: React.PropTypes.string
 }
 
-export default Storty
+export default StortyItem
