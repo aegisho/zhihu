@@ -8,7 +8,7 @@ import Footer from './components/Footer'
 
 render((
   <div>
-    <Header title="知乎日报"/>
+    <Header />
     <Router history={browserHistory} routes={routes} />
     <Footer />
   </div>

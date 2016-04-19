@@ -1,6 +1,6 @@
 # zhihu
 
-> A React project fro zhihudaily(http://daily.zhihu.com)
+> A React project fro zhihu-daily(http://daily.zhihu.com)
 
 ## Build Setup
 ```

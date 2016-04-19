@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var autoprefixer = require('autoprefixer')
 
 module.exports = {
   entry: {
@@ -19,6 +20,10 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel!eslint',
       exclude: /node_modules|(lib)/
+    }, {
+      test: /\.css$/,
+      loader: 'style!css!postcss',
+      exclude: /node_modules|(lib)/
     }]
   },
   resolve: {
@@ -27,6 +32,9 @@ module.exports = {
   eslint: {
     formatter: require('eslint-friendly-formatter')
   },
+  postcss: [
+    autoprefixer({ browsers: ['last 2 versions'] })
+  ],
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
   ]

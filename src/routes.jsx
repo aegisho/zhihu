@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Router } from 'react-router'
 
-import Storties from './components/Storty/Storties/index'
+import Storties from './components/Storty/Storties'
 import Storty from './components/Storty/Storty'
 import Comment from './components/Comment/Comment'
 

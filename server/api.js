@@ -7,6 +7,7 @@ const VERSION = 4
 const DOMAIN = `http://news-at.zhihu.com/api/${VERSION}`
 
 module.exports = function(request, response) {
+  response.setHeader('Content-Type', 'application/json')
   response.setHeader('Access-Control-Allow-Origin', '*')
 
   let api = url.parse(request.url).path

@@ -9,4 +9,8 @@ let port = require('./port')
 http.createServer(api).listen(port.api)
 http.createServer(image).listen(port.image)
 
+process.on('uncaughtException', (err) => {
+  console.log(`Caught exception: ${err}`)
+})
+
 console.log('proxy running')
