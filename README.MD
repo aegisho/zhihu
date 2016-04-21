@@ -4,6 +4,5 @@
 
 ## Build Setup
 ```
-npm run server
 npm run dev
 ```
