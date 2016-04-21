@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-import StortyItem from './StortyItem'
+import StoryItem from './StoryItem'
 import zhihu from '../../../services/zhihu'
+import './stories.css'
 
-class Storties extends React.Component {
+class Stories extends React.Component {
   constructor(props) {
     super(props)
     this.state = { data: { date: '', stories: [] } }
@@ -13,21 +14,21 @@ class Storties extends React.Component {
   render() {
     let { date, stories } = this.state.data
 
-    let storties = stories.map((storty) => {
+    let storiesList = stories.map((story) => {
       return (
-        <li key={storty.id}>
-          <Link to={'/storty/' + storty.id}>
-            <StortyItem title={storty.title} image={storty.images[0]}/>
+        <li key={story.id}>
+          <Link to={'/story/' + story.id}>
+            <StoryItem title={story.title} image={story.images[0]}/>
           </Link>
         </li>
       )
     })
 
     return (
-      <div>
+      <div className="stories">
         <h2>{date}</h2>
         <ul>
-          {storties}
+          {storiesList}
         </ul>
       </div>
     )
@@ -40,6 +41,6 @@ class Storties extends React.Component {
   }
 }
 
-Storties.propTypes = { data: React.PropTypes.array }
+Stories.propTypes = { data: React.PropTypes.array }
 
-export default Storties
+export default Stories

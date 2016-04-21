@@ -2,7 +2,7 @@ import React from 'react'
 
 import ProxyImage from '../../Common/ProxyImage'
 
-class StortyItem extends React.Component {
+class StoryItem extends React.Component {
   render() {
     return (
       <article>
@@ -13,9 +13,9 @@ class StortyItem extends React.Component {
   }
 }
 
-StortyItem.propTypes = {
+StoryItem.propTypes = {
   title: React.PropTypes.string,
   image: React.PropTypes.string
 }
 
-export default StortyItem
+export default StoryItem

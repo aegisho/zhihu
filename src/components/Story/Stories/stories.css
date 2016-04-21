@@ -1,0 +1,38 @@
+.stories {
+  background-color: #f8f8f8;
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.stories ul, .stories li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stories li {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  margin: 10px 0;
+  height: 120px;
+}
+
+.stories li h2 {
+  font-size: 12px;
+}
+
+.stories li img {
+  float: right;
+  width: 100px;
+}
+
+.stories li a {
+  color: #333;
+}
+
+.stories li a:visited {
+  color: #666;
+}
+

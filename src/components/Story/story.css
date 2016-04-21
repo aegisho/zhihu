@@ -922,6 +922,36 @@ body.dudu-night,
 }
 
 /* add by yjj*/
+header.story {
+  position: absolute;
+  top: 100px;
+  height: 100px;
+  width: 100%;
+  z-index: 1;
+  color: #fff;
+  font: menu;
+  background: linear-gradient(rgba(255,255,255,0), rgba(0,0,0,0.4));
+}
+
+header.story .title {
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 18px;
+  padding: 0 1em;
+  margin: 0 !important;
+  bottom: 20px;
+}
+
+header.story .marsk {
+  position: absolute;
+  width: 100%;
+  text-align: right;
+  font-size: 12px;
+  right: 1.5em;
+  bottom: 5px;
+  margin: 0 !important;
+}
 
 .headline .img-place-holder img {
   transform: translateY(-25%);

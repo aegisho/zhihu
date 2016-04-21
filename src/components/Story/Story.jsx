@@ -4,22 +4,26 @@ import { render, findDOMNode } from 'react-dom'
 import zhihu from '../../services/zhihu'
 import ProxyImage from '../Common/ProxyImage'
 
-import './storty.css'
+import './story.css'
 
-class Storty extends React.Component {
+class Story extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       title: '',
       image: '',
-      body: ''
+      body: '',
+      imageSource: ''
     }
   }
 
   render() {
     return (
       <article>
-        <h2>{this.state.title}</h2>
+        <header className="story">
+          <h2 className="title">{this.state.title}</h2>
+          <p className="marsk">{this.state.imageSource}</p>
+        </header>
         {/* eslint-disable */}
         <div dangerouslySetInnerHTML={{__html: this.state.body}} />
         {/* eslint-enable */}
@@ -33,6 +37,7 @@ class Storty extends React.Component {
       this.setState({ title: data.title })
       this.setState({ image: data.image })
       this.setState({ body: data.body })
+      this.setState({ imageSource: data.image_source })
     })
   }
 
@@ -58,8 +63,8 @@ class Storty extends React.Component {
   }
 }
 
-Storty.propTypes = {
+Story.propTypes = {
   params: React.PropTypes.object
 }
 
-export default Storty
+export default Story
