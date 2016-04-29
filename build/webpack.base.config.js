@@ -7,6 +7,9 @@ module.exports = {
     app: './src/main.jsx',
     vendors: ['react', 'react-dom', 'history', 'react-router']
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   output: {
     path: path.resolve(__dirname, './dist/static'),
     publicPath: 'static/',
@@ -19,15 +22,16 @@ module.exports = {
     }, {
       test: /\.js$/,
       loader: 'babel!eslint',
-      exclude: /node_modules|(lib)/
+      exclude: /node_modules/
+    }, {
+      test: /\.css$/,
+      loader: 'style!css?modules&localIdentName=[name]__[local]-[hash:base64:5]!postcss',
+      exclude: path.resolve(__dirname, '../src/styles'),
     }, {
       test: /\.css$/,
       loader: 'style!css!postcss',
-      exclude: /node_modules|(lib)/
+      include: path.resolve(__dirname, '../src/styles'),
     }]
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
   },
   eslint: {
     formatter: require('eslint-friendly-formatter')

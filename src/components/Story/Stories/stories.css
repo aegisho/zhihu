@@ -5,34 +5,41 @@
   overflow-y: auto;
 }
 
+.title {
+  font-weight: normal;
+  text-indent: .5em;
+}
+
 .stories ul, .stories li {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.stories li {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  margin: 10px 0;
-  height: 120px;
-}
-
-.stories li h2 {
-  font-size: 12px;
-}
-
-.stories li img {
-  float: right;
-  width: 100px;
-}
-
-.stories li a {
+.stories a {
   color: #333;
 }
 
-.stories li a:visited {
+.stories a:visited {
   color: #666;
 }
 
+.story {
+  background-color: #fff;
+  border: 1px solid #f5f5f5;
+  border-radius: 2px;
+  margin: 10px 0;
+  padding: .5em 1em;
+  height: 50px;
+}
+
+.story p {
+  font-size: 14px;
+  margin: 0 !important;
+}
+
+.story img {
+  float: right;
+  height: 100%;
+  margin-left: 10px;
+}

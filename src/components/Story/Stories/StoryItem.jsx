@@ -1,14 +1,15 @@
 import React from 'react'
 
+import styles from './stories.css'
 import ProxyImage from '../../Common/ProxyImage'
 
 class StoryItem extends React.Component {
   render() {
     return (
-      <article>
-        <h2>{this.props.title}</h2>
+      <div className={styles.story}>
         <ProxyImage src={this.props.image} />
-      </article>
+        <p>{this.props.title}</p>
+      </div>
     )
   }
 }

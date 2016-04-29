@@ -1,15 +1,13 @@
 import React from 'react'
-import port from '../../../server/port'
+
+import proxy from '../../services/proxy'
 
 class ProxyImage extends React.Component {
   constructor(props) {
     super(props)
   }
   render() {
-    let proxy = `http://127.0.0.1:${port.image}/`
-    let src = proxy + encodeURIComponent(this.props.src)
-
-    return <img {...this.props} src={src} />
+    return <img {...this.props} src={proxy.parseImageSrc(this.props.src)} />
   }
 }
 

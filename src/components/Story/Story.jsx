@@ -1,10 +1,13 @@
 import React from 'react'
-import { render, findDOMNode } from 'react-dom'
 
 import zhihu from '../../services/zhihu'
 import ProxyImage from '../Common/ProxyImage'
+import proxy from '../../services/proxy'
 
-import './story.css'
+import '../../styles/zhihu.css'
+import styles from './story.css'
+
+const SRCREGEX = /(<img [^>]*src=['"])([^'"]+)([^>]*>)/gi
 
 class Story extends React.Component {
   constructor(props) {
@@ -20,10 +23,16 @@ class Story extends React.Component {
   render() {
     return (
       <article>
-        <header className="story">
-          <h2 className="title">{this.state.title}</h2>
-          <p className="marsk">{this.state.imageSource}</p>
+        <header className={styles.header}>
+          返回
         </header>
+        <div className={styles.cover}>
+          <ProxyImage src={this.state.image} className={styles.background} />
+          <div className={styles.mask}>
+            <h2 className={styles.title}>{this.state.title}</h2>
+            <p className={styles.mark}>{this.state.imageSource}</p>
+          </div>
+        </div>
         {/* eslint-disable */}
         <div dangerouslySetInnerHTML={{__html: this.state.body}} />
         {/* eslint-enable */}
@@ -31,35 +40,20 @@ class Story extends React.Component {
     )
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let id = this.props.params.id
     zhihu.getStory(id).then((data) => {
       this.setState({ title: data.title })
       this.setState({ image: data.image })
-      this.setState({ body: data.body })
+      this.setState({ body: this.parse(data.body) })
       this.setState({ imageSource: data.image_source })
     })
   }
 
-  componentDidUpdate() {
-    const el = findDOMNode(this)
-
-    let placeHolder = el.querySelector('.img-place-holder')
-
-    if (placeHolder) {
-      let temp = document.createElement('div')
-      let images = el.querySelectorAll('img')
-
-      for (let i = 0; i < images.length; i++) {
-        let image = images[i]
-        let { src, className, alt } = image
-        render(<ProxyImage src={src} className={className} alt={alt} />, temp)
-
-        image.parentNode.replaceChild(temp.firstElementChild, image)
-      }
-
-      render(<ProxyImage src={this.state.image} />, placeHolder)
-    }
+  parse(html) {
+    return html.replace(SRCREGEX, function(match, left, src, right) {
+      return left + proxy.parseImageSrc(src) + right
+    })
   }
 }
 

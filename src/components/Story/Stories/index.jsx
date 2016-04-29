@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router'
 
 import StoryItem from './StoryItem'
+import Title from './Title'
 import zhihu from '../../../services/zhihu'
-import './stories.css'
+import styles from './stories.css'
 
 class Stories extends React.Component {
   constructor(props) {
@@ -11,8 +12,15 @@ class Stories extends React.Component {
     this.state = { data: { date: '', stories: [] } }
   }
 
+  componentDidMount() {
+    zhihu.getStories().then((data) => {
+      this.setState({ data })
+    })
+  }
+
   render() {
     let { date, stories } = this.state.data
+    console.log('date', date)
 
     let storiesList = stories.map((story) => {
       return (
@@ -25,19 +33,13 @@ class Stories extends React.Component {
     })
 
     return (
-      <div className="stories">
-        <h2>{date}</h2>
+      <div className={styles.stories}>
+        <Title date={date} />
         <ul>
           {storiesList}
         </ul>
       </div>
     )
-  }
-
-  componentDidMount() {
-    zhihu.getStories().then((data) => {
-      this.setState({ data })
-    })
   }
 }
 
