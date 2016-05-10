@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb",
+  "globals": {
+    "toast": true
+  },
+  "rules": {
+    "semi": 0,
+    "comma-dangle": 0
+  }
+}

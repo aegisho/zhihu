@@ -4,21 +4,21 @@ import port from '../../server/port'
 const DOMAIN = `http://127.0.0.1:${port.api}`
 
 const request = (api) => {
-  let url = `${DOMAIN}${api}`
+  const url = `${DOMAIN}${api}`
   return fetch(url).then(res => res.json())
 }
 
 export default {
   getStories(date) {
-    let api = date ? `/stories/before/${date}` : '/stories/latest'
+    const api = date ? `/stories/before/${date}` : '/stories/latest'
     return request(api)
   },
   getStory(id) {
-    return request(`/story/${id}`).then((story) => {
-      return request(`/story-extra/${id}`).then((extra) => {
-        return Object.assign(story, extra)
-      }).catch(() => story)
-    })
+    return request(`/story/${id}`).then((story) =>
+      request(`/story-extra/${id}`)
+        .then((extra) => Object.assign(story, extra))
+        .catch(() => story)
+    )
   },
   getLongComments(id) {
     return request(`/story/${id}/long-comments`)

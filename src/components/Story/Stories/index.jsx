@@ -9,28 +9,26 @@ import styles from './stories.css'
 class Stories extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { data: { date: '', stories: [] } }
+    this.state = { date: '', stories: [] }
   }
 
   componentDidMount() {
     zhihu.getStories().then((data) => {
-      this.setState({ data })
+      const { date, stories } = data
+      this.setState({ date, stories })
     })
   }
 
   render() {
-    let { date, stories } = this.state.data
-    console.log('date', date)
+    const { date, stories } = this.state
 
-    let storiesList = stories.map((story) => {
-      return (
-        <li key={story.id}>
-          <Link to={'/story/' + story.id}>
-            <StoryItem title={story.title} image={story.images[0]}/>
-          </Link>
-        </li>
-      )
-    })
+    let storiesList = stories.map((story) => (
+      <li key={story.id}>
+        <Link to={`/story/${story.id}`}>
+          <StoryItem title={story.title} image={story.images[0]} />
+        </Link>
+      </li>
+    ))
 
     return (
       <div className={styles.stories}>

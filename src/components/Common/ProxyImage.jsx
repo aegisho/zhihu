@@ -2,13 +2,8 @@ import React from 'react'
 
 import proxy from '../../services/proxy'
 
-class ProxyImage extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-  render() {
-    return <img {...this.props} src={proxy.parseImageSrc(this.props.src)} />
-  }
+function ProxyImage(props) {
+  return <img {...props} src={proxy.parseImageSrc(props.src)} role="presentation" />
 }
 
 ProxyImage.propTypes = { src: React.PropTypes.string }

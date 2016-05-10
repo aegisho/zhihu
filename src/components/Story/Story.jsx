@@ -20,6 +20,25 @@ class Story extends React.Component {
     }
   }
 
+  componentWillMount() {
+    const id = this.props.params.id
+
+    zhihu.getStory(id).then((data) => {
+      this.setState({ title: data.title })
+      this.setState({ image: data.image })
+      this.setState({ body: this.parse(data.body) })
+      this.setState({ imageSource: data.image_source })
+    })
+  }
+
+  parse(html) {
+    return html.replace(SRCREGEX, (match, left, src, right) => {
+      const proxySrc = proxy.parseImageSrc(src)
+
+      return left + proxySrc + right
+    })
+  }
+
   render() {
     return (
       <article>
@@ -38,22 +57,6 @@ class Story extends React.Component {
         {/* eslint-enable */}
       </article>
     )
-  }
-
-  componentWillMount() {
-    let id = this.props.params.id
-    zhihu.getStory(id).then((data) => {
-      this.setState({ title: data.title })
-      this.setState({ image: data.image })
-      this.setState({ body: this.parse(data.body) })
-      this.setState({ imageSource: data.image_source })
-    })
-  }
-
-  parse(html) {
-    return html.replace(SRCREGEX, function(match, left, src, right) {
-      return left + proxy.parseImageSrc(src) + right
-    })
   }
 }
 

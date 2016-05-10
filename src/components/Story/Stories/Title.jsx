@@ -10,14 +10,12 @@ class Title extends React.Component {
     this.state = { title: this.parseDate() }
   }
 
-  componentWillReceiveProps() {
-    this.setState({ title: this.parseDate() })
+  componentWillReceiveProps(nextProps) {
+    this.setState({ title: this.parseDate(nextProps.date) })
   }
 
-  parseDate() {
+  parseDate(date) {
     const FORMAT = 'YYYYMMDD'
-
-    let date = this.props.date
     let title = ''
 
     if (date) {
