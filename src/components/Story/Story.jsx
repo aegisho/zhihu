@@ -16,7 +16,7 @@ class Story extends React.Component {
       title: '',
       image: '',
       body: '',
-      imageSource: ''
+      imageSource: '',
     }
   }
 
@@ -61,7 +61,7 @@ class Story extends React.Component {
 }
 
 Story.propTypes = {
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
 }
 
 export default Story

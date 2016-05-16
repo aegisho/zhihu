@@ -25,5 +25,5 @@ export default {
   },
   getShortComments(id) {
     return request(`/story/${id}/short-comments`)
-  }
+  },
 }

@@ -3,6 +3,9 @@ import { findDOMNode } from 'react-dom'
 import SliderItem from './Slider.Item'
 import styles from './slider.css'
 
+let ticking = false
+
+// BUG: ontouchmove sometimg between two item
 class Slider extends React.Component {
   constructor(props) {
     super(props)
@@ -19,9 +22,7 @@ class Slider extends React.Component {
       'onTouchMove',
       'onTouchEnd',
       'play',
-      'pause',
-      'next',
-      'prev'].forEach((method) => {
+      'pause'].forEach((method) => {
         this[method] = this[method].bind(this)
       })
   }
@@ -50,59 +51,70 @@ class Slider extends React.Component {
   onTouchStart(event) {
     const { pageX } = event.changedTouches[0]
 
-    this.startPosition = { x: pageX }
+    this.startPosition = pageX
     this.pause()
   }
 
   onTouchMove(event) {
-    const { pageX } = event.changedTouches[0]
-    const currentPosition = { x: pageX }
-    const deltaX = currentPosition.x - this.startPosition.x
+    // FIXME: not enough Smooth
+    if (!ticking) {
+      ticking = true
+      const { pageX } = event.changedTouches[0]
 
-    this.startPosition = currentPosition
-    this.update(this.state.activeIndex, deltaX)
+      requestAnimationFrame(() => {
+        const prevPostions = this.prevPostions || this.startPosition
+        const deltaX = pageX - prevPostions
+
+        this.prevPostions = pageX
+        this.updateVectorX(deltaX)
+        ticking = false
+      })
+    }
   }
 
-  onTouchEnd() {
+  onTouchEnd(event) {
+    this.startPosition = this.prevPostions = 0
+    const { pageX } = event.changedTouches[0]
+    const endPosition = { x: pageX }
+    const direction = endPosition.x - this.startPosition.x > 0 ? 'left' : 'right'
     const { width, vectorX } = this.state
+    const deltaX = vectorX % width
+    let index = Math.abs(vectorX - deltaX) / width
 
-    // if moving rather then half width, goto next or prev
-    if (Math.abs(vectorX) > width / 4) {
-      if (vectorX < 0) {
-        this.next()
+    // if moving rather then half width, goto direction
+    if (Math.abs(deltaX) >= width / 2) {
+      if (direction === 'left') {
+        index -= 1
       } else {
-        this.prev()
+        index += 1
       }
-    } else {
-      this.update()
     }
+
+    this.updateIndex(index)
 
     if (this.props.autoPlay) {
       setTimeout(this.play, this.props.speed)
     }
   }
 
-  next() {
-    const { activeIndex, count } = this.state
-
-    let index = activeIndex + 1
-
-    if (index > count - 1) {
-      index = 0
-    }
-
-    this.update(index)
-  }
-
-  prev() {
-    let index = this.state.activeIndex - 1
-    const count = React.Children.count(this.props.children)
+  setIndex(activeIndex) {
+    let index = activeIndex
+    const { count } = this.state
 
     if (index < 0) {
       index = count - 1
     }
 
-    this.update(index)
+    if (index > count - 1) {
+      index = 0
+    }
+
+    this.updateIndex(index)
+  }
+
+  next() {
+    const index = this.state.activeIndex + 1
+    this.setIndex(index)
   }
 
   play() {
@@ -116,18 +128,23 @@ class Slider extends React.Component {
     clearTimeout(this.timeid)
   }
 
-  // todo: BUG different with index change and move change
-  update(index = this.state.activeIndex, deltaX = 0) {
-    const { activeIndex, vectorX, width, count } = this.state
-    const totalWidth = width * count
+  updateIndex(index = this.state.activeIndex) {
+    const { width } = this.state
+    const vectorX = -(index * width)
 
-    let x = (index - activeIndex) * width
-    if (x === 0) {
-      x += vectorX + deltaX
-    }
+    this.setState({ activeIndex: index, vectorX })
+  }
 
-    if (x > 0) x = 0
-    if (totalWidth + x < 0) x = -totalWidth
+  updateVectorX(deltaX) {
+    const { vectorX, width, count } = this.state
+    const maxVectorX = width * (count - 1)
+    const border = width / 4
+
+    let x = vectorX + deltaX
+    if (x > border) x = 0
+    if (maxVectorX + x < -border) x = -maxVectorX
+
+    const index = x / width
 
     this.setState({ activeIndex: index, vectorX: x })
   }
@@ -159,12 +176,15 @@ Slider.propTypes = {
   loop: React.PropTypes.bool,
   speed: React.PropTypes.number,
   children: React.PropTypes.node,
+  // todo: pagination
+  pagination: React.PropTypes.bool,
 }
 
 Slider.defaultProps = {
   autoPlay: false,
   speed: 3000,
   loop: false,
+  pagination: true,
 }
 
 Slider.Item = SliderItem

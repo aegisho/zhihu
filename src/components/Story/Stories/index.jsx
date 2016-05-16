@@ -6,6 +6,7 @@ import Title from './Title'
 import Slider from '../../Common/Slider'
 import zhihu from '../../../services/zhihu'
 import styles from './stories.css'
+import StorySlider from '../StorySlider'
 
 class Stories extends React.Component {
   constructor(props) {
@@ -26,11 +27,12 @@ class Stories extends React.Component {
     let tops = topStories.map((story) => (
       <Slider.Item className={styles['top-stories']} key={story.id}>
         <Link to={`/story/${story.id}`}>
-          <StoryItem title={story.title} image={story.image} />
+          <StorySlider title={story.title} image={story.image} />
         </Link>
       </Slider.Item>
     ))
 
+    // todo: wraper list as item
     let storiesList = stories.map((story) => (
       <li key={story.id}>
         <Link to={`/story/${story.id}`}>

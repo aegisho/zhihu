@@ -14,7 +14,7 @@ function StoryItem(props) {
 
 StoryItem.propTypes = {
   title: React.PropTypes.string,
-  image: React.PropTypes.string
+  image: React.PropTypes.string,
 }
 
 export default StoryItem

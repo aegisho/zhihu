@@ -39,3 +39,25 @@
   z-index: 1;
   background: linear-gradient(rgba(255,255,255,0), rgba(0,0,0,0.4));
 }
+
+.slider {
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider img {
+  width: 100%;
+  transform: translateY(-25%);
+}
+
+.slider p {
+  width: 100%;
+  font-size: 21px;
+  position: absolute;
+  box-sizing: border-box;
+  padding: 0 1em;
+  margin: 0 !important;
+  bottom: 1em;
+  color: #fff;
+}
