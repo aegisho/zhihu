@@ -6,3 +6,25 @@
 ```
 npm run dev
 ```
+
+## component hierarchy
+```
+HomePage
+  ├─Header
+  ├─Slider
+  │  └─SliderItem*
+  └─StoryCollection
+     └─StoryList*
+        ├─StoryHeader
+        └─StoryItem
+
+StoryPage
+  ├─Header
+  └─Story
+
+CommentPage
+  └─CommentList*
+     ├─CommentHeader
+     └─CommentItem*
+
+```
