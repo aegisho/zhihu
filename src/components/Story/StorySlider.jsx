@@ -7,7 +7,9 @@ function StorySlider(props) {
   return (
     <div className={styles.slider}>
       <ProxyImage src={props.image} />
-      <p>{props.title}</p>
+      <div className={styles.mask}>
+        <p>{props.title}</p>
+      </div>
     </div>
   )
 }

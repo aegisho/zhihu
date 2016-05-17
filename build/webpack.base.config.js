@@ -25,7 +25,7 @@ module.exports = {
       exclude: /node_modules/
     }, {
       test: /\.css$/,
-      loader: 'style!css?modules&localIdentName=[name]__[local]-[hash:base64:5]!postcss',
+      loader: 'style!css?modules&camelCase&localIdentName=[name]__[local]-[hash:base64:5]!postcss',
       exclude: path.resolve(__dirname, '../src/styles'),
     }, {
       test: /\.css$/,

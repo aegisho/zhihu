@@ -1,4 +1,4 @@
-# zhihu
+# zhihu daily
 
 > A React project fro zhihu-daily(http://daily.zhihu.com)
 
@@ -7,7 +7,7 @@
 npm run dev
 ```
 
-## component hierarchy
+## components
 ```
 HomePage
   ├─Header
@@ -28,3 +28,5 @@ CommentPage
      └─CommentItem*
 
 ```
+## todo
+> Redux Immutable-js

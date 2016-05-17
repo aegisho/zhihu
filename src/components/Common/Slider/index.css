@@ -1,0 +1,29 @@
+.slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.item {
+  float: left;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.pagination-bullet {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 100%;
+  background: #dfdfdf;
+  margin: 0 4px;
+}
+
+.pagination-bullet-active {
+  background: #fff;
+}
