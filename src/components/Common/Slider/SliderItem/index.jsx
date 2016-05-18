@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styles from '../index.css'
+import styles from './sliderItem.css'
 
 const propTypes = {
   index: React.PropTypes.number,

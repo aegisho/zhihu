@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styles from '../index.css'
+import styles from './sliderPagination.css'
 
 const propTypes = {
   count: React.PropTypes.number,
@@ -15,7 +15,7 @@ function SliderPagination(props) {
     if (i === props.activeIndex) {
       className += ` ${styles.paginationBulletActive}`
     }
-    paginations.push(<span className={className}></span>)
+    paginations.push(<span key={i} className={className}></span>)
   }
 
   return (

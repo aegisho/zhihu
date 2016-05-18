@@ -3,13 +3,6 @@ import { render } from 'react-dom'
 import { browserHistory, Router } from 'react-router'
 
 import routes from './routes'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import './styles/reset.css'
 
-render((
-  <div>
-    <Header />
-    <Router history={browserHistory} routes={routes} />
-    <Footer />
-  </div>
-), document.getElementById('app'))
+render(<Router history={browserHistory} routes={routes} />, document.getElementById('app'))

@@ -4,12 +4,16 @@ import zhihu from '../../services/zhihu'
 import ProxyImage from '../Common/ProxyImage'
 import proxy from '../../services/proxy'
 
+import styles from './storyPage.css'
 import '../../styles/zhihu.css'
-import styles from './story.css'
+
+const propTypes = {
+  params: React.PropTypes.object,
+}
 
 const SRCREGEX = /(<img [^>]*src=['"])([^'"]+)([^>]*>)/gi
 
-class Story extends React.Component {
+class StoryPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -42,9 +46,9 @@ class Story extends React.Component {
   render() {
     return (
       <article>
-        <header className={styles.header}>
+        {/* <header className={styles.header}>
           返回
-        </header>
+        </header> */}
         <div className={styles.cover}>
           <ProxyImage src={this.state.image} className={styles.background} />
           <div className={styles.mask}>
@@ -60,8 +64,6 @@ class Story extends React.Component {
   }
 }
 
-Story.propTypes = {
-  params: React.PropTypes.object,
-}
+StoryPage.propTypes = propTypes
 
-export default Story
+export default StoryPage

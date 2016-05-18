@@ -7,7 +7,7 @@
 npm run dev
 ```
 
-## components
+## Components
 ```
 HomePage
   ├─Header
@@ -28,5 +28,10 @@ CommentPage
      └─CommentItem*
 
 ```
-## todo
-> Redux Immutable-js
+## Todo
+> 1.Pull-refresh 
+> 2.Load more drop down 
+> 3.PreLoad
+> 4.Story Cache
+> 5.Redux 
+> 6.Immutable-js

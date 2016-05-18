@@ -1,6 +1,6 @@
 {
   "name": "zhihu-daily",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "zhihu-daily",
   "scripts": {
     "lint": "eslint src",
@@ -39,5 +39,6 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.12.15",
     "webpack-dev-server": "^1.14.1"
-  }
+  },
+  "pre-commit": ["lint"]
 }

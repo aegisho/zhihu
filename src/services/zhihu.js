@@ -9,6 +9,9 @@ const request = (api) => {
 }
 
 export default {
+  getTopStories() {
+    return this.getStories().then((data) => data.top_stories)
+  },
   getStories(date) {
     const api = date ? `/stories/before/${date}` : '/stories/latest'
     return request(api)

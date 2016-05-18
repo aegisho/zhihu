@@ -1,0 +1,14 @@
+.list {
+  background-color: #f8f8f8;
+  padding: 0 10px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.link {
+  color: #333;
+}
+
+.link:visited {
+  color: #666;
+}
