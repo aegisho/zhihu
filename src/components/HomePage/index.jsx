@@ -2,7 +2,9 @@ import React from 'react'
 import { Link } from 'react-router'
 
 import zhihu from '../../services/zhihu'
+import styles from './homePage.css'
 
+import Header from '../Header'
 import StoryCollection from './StoryCollection'
 import Slider from '../Common/Slider'
 import StorySliderItem from './StorySliderItem'
@@ -11,7 +13,10 @@ class Stories extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { topStories: [] }
+    this.state = {
+      topStories: [],
+      title: '首页',
+    }
   }
 
   componentDidMount() {
@@ -20,8 +25,12 @@ class Stories extends React.Component {
     })
   }
 
+  onSetHeader(title) {
+    this.setState({ title })
+  }
+
   render() {
-    const { topStories } = this.state
+    const { topStories, title } = this.state
 
     let tops = topStories.map((story) => (
       <Slider.Item key={story.id}>
@@ -33,8 +42,11 @@ class Stories extends React.Component {
 
     return (
       <div className="home-page">
-        <Slider>{tops}</Slider>
-        <StoryCollection />
+        <Header>{title}</Header>
+        <div className={styles.slider}>
+          <Slider>{tops}</Slider>
+        </div>
+        <StoryCollection onSetHeader={this.onSetHeader} />
       </div>
     )
   }

@@ -8,20 +8,12 @@ const propTypes = {
   width: React.PropTypes.number,
 }
 
-class SliderItem extends React.Component {
-  defaultProps() {
-    return {
-      index: 0,
-    }
-  }
-
-  render() {
-    return (
-      <div className={styles.item} style={{ width: this.props.width }}>
-        {this.props.children}
-      </div>
-    )
-  }
+function SliderItem(props) {
+  return (
+    <div className={styles.item} style={{ width: props.width }}>
+      {props.children}
+    </div>
+  )
 }
 
 SliderItem.propTypes = propTypes

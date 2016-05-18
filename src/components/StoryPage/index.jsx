@@ -1,11 +1,13 @@
 import React from 'react'
 
-import zhihu from '../../services/zhihu'
-import ProxyImage from '../Common/ProxyImage'
-import proxy from '../../services/proxy'
-
 import styles from './storyPage.css'
 import '../../styles/zhihu.css'
+import '../../styles/story.css'
+
+import zhihu from '../../services/zhihu'
+import proxy from '../../services/proxy'
+import ProxyImage from '../Common/ProxyImage'
+import Header from '../Header'
 
 const propTypes = {
   params: React.PropTypes.object,
@@ -16,26 +18,19 @@ const SRCREGEX = /(<img [^>]*src=['"])([^'"]+)([^>]*>)/gi
 class StoryPage extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      title: '',
-      image: '',
-      body: '',
-      imageSource: '',
-    }
+
+    this.state = { story: {} }
   }
 
   componentWillMount() {
     const id = this.props.params.id
 
     zhihu.getStory(id).then((data) => {
-      this.setState({ title: data.title })
-      this.setState({ image: data.image })
-      this.setState({ body: this.parse(data.body) })
-      this.setState({ imageSource: data.image_source })
+      this.setState({ story: data })
     })
   }
 
-  parse(html) {
+  parse(html = '') {
     return html.replace(SRCREGEX, (match, left, src, right) => {
       const proxySrc = proxy.parseImageSrc(src)
 
@@ -44,20 +39,24 @@ class StoryPage extends React.Component {
   }
 
   render() {
+    const { title, image, image_source: imageSource, comments, popularity } = this.state.story
+    const body = this.parse(this.state.story.body)
+
     return (
       <article>
-        {/* <header className={styles.header}>
-          返回
-        </header> */}
+        <Header className={styles.header} showBack>
+          <span className="fa fa-commenting">{comments}</span>
+          <span className="fa fa-thumbs-up">{popularity}</span>
+        </Header>
         <div className={styles.cover}>
-          <ProxyImage src={this.state.image} className={styles.background} />
+          <ProxyImage src={image} className={styles.background} />
           <div className={styles.mask}>
-            <h2 className={styles.title}>{this.state.title}</h2>
-            <p className={styles.mark}>{this.state.imageSource}</p>
+            <h2 className={styles.title}>{title}</h2>
+            <p className={styles.mark}>{imageSource}</p>
           </div>
         </div>
         {/* eslint-disable */}
-        <div dangerouslySetInnerHTML={{__html: this.state.body}} />
+        <div dangerouslySetInnerHTML={{__html: body}} />
         {/* eslint-enable */}
       </article>
     )

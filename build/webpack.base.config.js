@@ -5,7 +5,7 @@ var autoprefixer = require('autoprefixer')
 module.exports = {
   entry: {
     app: './src/main.jsx',
-    vendors: ['react', 'react-dom', 'history', 'react-router']
+    vendors: ['history', 'react', 'react-dom', 'react-router']
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -26,11 +26,23 @@ module.exports = {
     }, {
       test: /\.css$/,
       loader: 'style!css?modules&camelCase&localIdentName=[name]__[local]-[hash:base64:5]!postcss',
-      exclude: path.resolve(__dirname, '../src/styles'),
+      exclude: [
+        /node_modules/,
+        path.resolve(__dirname, '../src/styles'),
+      ]
     }, {
       test: /\.css$/,
       loader: 'style!css!postcss',
-      include: path.resolve(__dirname, '../src/styles'),
+      include: [
+        /node_modules/,
+        path.resolve(__dirname, '../src/styles'),
+      ]
+    }, {
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'url?limit=10000&mimetype=application/font-woff'
+    }, {
+      test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'file'
     }]
   },
   eslint: {

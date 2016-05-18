@@ -1,6 +1,8 @@
 # zhihu daily
+A React project fro [zhihu-daily](http://daily.zhihu.com)
 
-> A React project fro zhihu-daily(http://daily.zhihu.com)
+## API
+[zhihu daily api](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)
 
 ## Build Setup
 ```
@@ -16,7 +18,7 @@ HomePage
   └─StoryCollection
      └─StoryList*
         ├─StoryHeader
-        └─StoryItem
+        └─StoryItem*
 
 StoryPage
   ├─Header
@@ -28,10 +30,14 @@ CommentPage
      └─CommentItem*
 
 ```
+
 ## Todo
-> 1.Pull-refresh 
-> 2.Load more drop down 
-> 3.PreLoad
-> 4.Story Cache
-> 5.Redux 
-> 6.Immutable-js
+1.HeaderComponent
+2.CommentPage
+3.<del>Drop down Load more</del>
+4.<del>Cache</del>
+5.<del>PreLoad</del>
+
+## Framework
+1.Redux
+2.Immutable-js

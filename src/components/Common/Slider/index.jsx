@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom'
 
 import SliderItem from './SliderItem'
 import SliderPagination from './SliderPagination'
-import styles from './index.css'
+import styles from './slider.css'
 
 let ticking = false
 
@@ -12,7 +12,7 @@ const propTypes = {
   children: React.PropTypes.node,
   duration: React.PropTypes.number,
   loop: React.PropTypes.bool,
-  pagination: React.PropTypes.bool, // todo
+  pagination: React.PropTypes.bool,
   speed: React.PropTypes.number,
 }
 
@@ -197,10 +197,12 @@ class Slider extends React.Component {
 
     let pagination = ''
     if (this.props.pagination) {
-      pagination = (<SliderPagination
-        count={this.state.count}
-        activeIndex={this.state.activeIndex}
-      />)
+      pagination = (
+        <SliderPagination
+          count={this.state.count}
+          activeIndex={this.state.activeIndex}
+        />
+      )
     }
 
     return (

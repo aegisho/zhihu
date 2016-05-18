@@ -5,15 +5,15 @@ import styles from './storyHeader.css'
 
 const propTypes = { title: React.PropTypes.string }
 
+const FORMAT = 'YYYYMMDD'
+
 function parseDate(date) {
-  const FORMAT = 'YYYYMMDD'
   let title = ''
 
   if (date) {
     if (date === moment().format(FORMAT)) {
       title = '今日热闻'
     } else {
-      moment().locale('zh-cn')
       title = moment(date, FORMAT).format('MM月DD日 dddd')
     }
   }
