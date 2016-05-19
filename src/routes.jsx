@@ -8,7 +8,7 @@ import CommentPage from './components/CommentPage'
 export default (
   <Route>
     <Router path="/" component={HomePage} />
-    <Router path="story/:id" component={StoryPage} />
-    <Router path="comment/:id" component={CommentPage} />
+    <Router path="story/:storyid" component={StoryPage} />
+    <Router path="comment/:storyid" component={CommentPage} />
   </Route>
 )

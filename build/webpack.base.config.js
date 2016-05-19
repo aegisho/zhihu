@@ -38,10 +38,14 @@ module.exports = {
         path.resolve(__dirname, '../src/styles'),
       ]
     }, {
-      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: 'url?limit=10000&mimetype=application/font-woff'
+      test: /\.(png|jpe?g|gif|svg|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'url',
+      query: {
+        limit: 10000,
+        name: '[name].[ext]?[hash]'
+      }
     }, {
-      test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      test: /\.(ttf|eot|svg|woff(2)?)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'file'
     }]
   },

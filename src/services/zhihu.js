@@ -78,9 +78,9 @@ export default {
     return result
   },
   getLongComments(id) {
-    return request(`/story/${id}/long-comments`)
+    return request(`/story/${id}/long-comments`).then((data) => data.comments)
   },
   getShortComments(id) {
-    return request(`/story/${id}/short-comments`)
+    return request(`/story/${id}/short-comments`).then((data) => data.comments)
   },
 }

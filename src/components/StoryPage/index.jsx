@@ -1,8 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 import styles from './storyPage.css'
 import '../../styles/zhihu.css'
-import '../../styles/story.css'
 
 import zhihu from '../../services/zhihu'
 import proxy from '../../services/proxy'
@@ -23,9 +23,9 @@ class StoryPage extends React.Component {
   }
 
   componentWillMount() {
-    const id = this.props.params.id
+    const { storyid } = this.props.params
 
-    zhihu.getStory(id).then((data) => {
+    zhihu.getStory(storyid).then((data) => {
       this.setState({ story: data })
     })
   }
@@ -39,14 +39,16 @@ class StoryPage extends React.Component {
   }
 
   render() {
-    const { title, image, image_source: imageSource, comments, popularity } = this.state.story
+    const { storyid } = this.props.params
+    const { title, image, image_source: imageSource, comments } = this.state.story
     const body = this.parse(this.state.story.body)
 
     return (
       <article>
         <Header className={styles.header} showBack>
-          <span className="fa fa-commenting">{comments}</span>
-          <span className="fa fa-thumbs-up">{popularity}</span>
+          <Link to={`/comment/${storyid}`}>
+            <span>Comments: {comments || '...'}</span>
+          </Link>
         </Header>
         <div className={styles.cover}>
           <ProxyImage src={image} className={styles.background} />

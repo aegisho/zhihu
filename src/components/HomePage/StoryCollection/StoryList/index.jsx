@@ -14,7 +14,7 @@ const propTypes = {
 function StoryList(props) {
   const { title, stories } = props
 
-  let storyList = stories.map((story) => (
+  const storyList = stories.map((story) => (
     <li key={story.id}>
       <Link className={styles.link} to={`/story/${story.id}`}>
         <StoryItem title={story.title} image={story.images[0]} />

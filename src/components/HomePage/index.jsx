@@ -42,7 +42,7 @@ class Stories extends React.Component {
 
     return (
       <div className="home-page">
-        <Header>{title}</Header>
+        <Header title={title} />
         <div className={styles.slider}>
           <Slider>{tops}</Slider>
         </div>

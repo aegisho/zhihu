@@ -1,8 +1,6 @@
 import React from 'react'
 
 import styles from './header.css'
-// TODO:BUG: not work in storypage
-import 'font-awesome/css/font-awesome.css'
 
 const propTypes = {
   title: React.PropTypes.string,
@@ -18,14 +16,14 @@ function Header(props) {
   let back = ''
 
   if (props.showBack) {
-    back = <i className="fa fa-arrow-left" onClick={goBack}></i>
+    back = <span className={styles.back} onClick={goBack}>&lsaquo;</span>
   }
 
   return (
     <header className={styles.header}>
       {back}
       {props.title}
-      {props.children}
+      <span className={styles.icon}>{props.children}</span>
     </header>
   )
 }
