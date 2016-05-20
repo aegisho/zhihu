@@ -47,7 +47,7 @@ class StoryPage extends React.Component {
       <article>
         <Header className={styles.header} showBack>
           <Link to={`/comment/${storyid}`}>
-            <span>Comments: {comments || '...'}</span>
+            <span className={styles.commentIcon}></span>{comments || '...'}
           </Link>
         </Header>
         <div className={styles.cover}>

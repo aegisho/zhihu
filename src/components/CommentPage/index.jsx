@@ -44,7 +44,7 @@ class CommentPage extends React.Component {
     return (
       <div className="comment-page">
         <Header title={title} showBack />
-        <CommentList title={longTitle} comments={longComments} />
+        <CommentList title={longTitle} comments={longComments} visibility />
         <CommentList title={shortTitle} comments={shortComments} />
       </div>
     )

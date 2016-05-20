@@ -1,0 +1,29 @@
+.item {
+  border-bottom: 1px solid #ccc;
+  line-height: 1.7;
+  padding: 1em;
+}
+
+.item p {
+  margin: 0 !important;
+}
+
+.author {
+  font-size: 16px;
+}
+
+.content {
+  padding: 0.5em 0;
+}
+
+.replyto {
+  color: #ccc;
+}
+
+.replyto b {
+  color: #000;
+}
+
+.time {
+  color: #ccc;
+}

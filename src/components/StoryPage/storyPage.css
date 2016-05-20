@@ -38,3 +38,11 @@
   z-index: 1;
   background: linear-gradient(rgba(255,255,255,0), rgba(0,0,0,0.4));
 }
+
+.comment-icon::after {
+  content: '\25A4';
+  font-size: 25px;
+  vertical-align: top;
+  margin-top: -2px;
+  display: inline-block;
+}
