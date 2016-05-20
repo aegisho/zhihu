@@ -31,13 +31,6 @@ CommentPage
 
 ```
 
-## Todo
-1.HeaderComponent
-2.CommentPage
-3.<del>Drop down Load more</del>
-4.<del>Cache</del>
-5.<del>PreLoad</del>
-
-## Framework
+## TODO Framework
 1.Redux
 2.Immutable-js
