@@ -3,6 +3,10 @@
   padding: 10px;
 }
 
+.ul {
+  padding: 0;
+}
+
 .link {
   color: #333;
 }

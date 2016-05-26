@@ -3,6 +3,8 @@ import React from 'react'
 import CommentHeader from './CommentHeader'
 import CommentItem from './CommentItem'
 
+import styles from './list.css'
+
 const propTypes = {
   comments: React.PropTypes.array,
   title: React.PropTypes.string,
@@ -39,7 +41,7 @@ class CommentList extends React.Component {
     return (
       <div className="comment-page">
         <CommentHeader title={title} onClick={this.toggleList} />
-        <ul>
+        <ul className={styles.ul}>
           {commentList}
         </ul>
       </div>

@@ -1,55 +1,41 @@
 import React from 'react'
-import { Link } from 'react-router'
-
-import zhihu from '../../services/zhihu'
-import styles from './homePage.css'
+import { connect } from 'react-redux'
 
 import Header from '../Header'
+import StorySlider from './StorySlider'
 import StoryCollection from './StoryCollection'
-import Slider from '../Common/Slider'
-import StorySliderItem from './StorySliderItem'
+
+import { getTopStories } from '../../redux/action'
+import styles from './homePage.css'
+
+const propTypes = {
+  dispatch: React.PropTypes.func,
+  topStories: React.PropTypes.array,
+}
 
 class Stories extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      topStories: [],
-      title: '首页',
-    }
-  }
-
   componentDidMount() {
-    zhihu.getTopStories().then((data) => {
-      this.setState({ topStories: data })
-    })
-  }
-
-  onSetHeader(title) {
-    this.setState({ title })
+    this.props.dispatch(getTopStories())
   }
 
   render() {
-    const { topStories, title } = this.state
-
-    let tops = topStories.map((story) => (
-      <Slider.Item key={story.id}>
-        <Link to={`/story/${story.id}`}>
-          <StorySliderItem title={story.title} image={story.image} />
-        </Link>
-      </Slider.Item>
-    ))
+    const { topStories } = this.props
 
     return (
       <div className="home-page">
-        <Header title={title} />
+        <Header title="首页" />
         <div className={styles.slider}>
-          <Slider>{tops}</Slider>
+          <StorySlider topStories={topStories} />
         </div>
-        <StoryCollection onSetHeader={this.onSetHeader} />
+        <StoryCollection />
       </div>
     )
   }
 }
 
-export default Stories
+Stories.propTypes = propTypes
+
+export default connect((state) => {
+  const { topStories } = state
+  return { topStories }
+})(Stories)

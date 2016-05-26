@@ -13,7 +13,7 @@ const request = (api) => {
 
 const CACHE = true
 // TODO:FIXME: set cache to other file
-export default {
+const zhihu = {
   getTopStories() {
     return this.getStories().then((data) => data.top_stories)
   },
@@ -28,7 +28,7 @@ export default {
     let result
 
     if (CACHE) {
-      const key = date || moment().format(date)
+      const key = date || moment().format(date, FORMAT)
       const value = cache.get(key)
 
       if (value) {
@@ -50,6 +50,16 @@ export default {
 
     return result
   },
+  getPrevStories: (function getPrevStories() {
+    const date = new Date()
+
+    return () => {
+      const dateStr = moment(date).format(FORMAT)
+      date.setDate(date.getDate() - 1)
+
+      return zhihu.getStories(dateStr)
+    }
+  }()),
   getStory(id) {
     let result
     const key = `Stroy_${id}`
@@ -84,3 +94,5 @@ export default {
     return request(`/story/${id}/short-comments`).then((data) => data.comments)
   },
 }
+
+export default zhihu

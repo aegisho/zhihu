@@ -25,7 +25,7 @@ function StoryList(props) {
   return (
     <div className={styles.list}>
       <StoryHeader title={title} />
-      <ul>{storyList}</ul>
+      <ul className={styles.ul}>{storyList}</ul>
     </div>
   )
 }

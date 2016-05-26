@@ -1,15 +1,13 @@
 import React from 'react'
-import moment from 'moment'
-
-import zhihu from '../../../services/zhihu'
+import { connect } from 'react-redux'
 
 import StroyList from './StoryList'
+import { getStories } from '../../../redux/action'
 
 const propTypes = {
-  onSetHeader: React.PropTypes.func,
+  dispatch: React.PropTypes.func,
+  stories: React.PropTypes.array,
 }
-
-const FORMAT = 'YYYYMMDD'
 
 const winHeight = document.documentElement.clientHeight
 
@@ -17,7 +15,6 @@ class StroyCollection extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { storyCollection: [] }
     this.onScrollHandle = this.onScrollHandle.bind(this)
   }
 
@@ -48,30 +45,24 @@ class StroyCollection extends React.Component {
     }
 
     // TODO: setTitle
-    // this.props.onSetHeader()
   }
 
   getStories() {
-    this.date = this.date || new Date()
-    const dateStr = moment(this.date).format(FORMAT)
-
-    return zhihu.getStories(dateStr).then((data) => {
-      const storyCollection = this.state.storyCollection.concat(data)
-      this.setState({ storyCollection })
-
-      this.date.setDate(this.date.getDate() - 1)
-    })
+    return this.props.dispatch(getStories())
   }
 
   preload(number = 3) {
     let promise = this.getStories()
+
     for (let i = 1; i < number; i++) {
       promise = promise.then(() => this.getStories())
     }
   }
 
   render() {
-    let storyCollection = this.state.storyCollection.map((story) => (
+    const { stories } = this.props
+
+    let storyCollection = stories.map((story) => (
       <StroyList key={story.date} title={story.date} stories={story.stories} />
     ))
 
@@ -85,5 +76,8 @@ class StroyCollection extends React.Component {
 
 StroyCollection.propTypes = propTypes
 
-export default StroyCollection
+export default connect((state) => {
+  const { stories } = state
+  return { stories }
+})(StroyCollection)
 

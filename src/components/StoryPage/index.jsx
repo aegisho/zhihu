@@ -1,33 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
 
 import styles from './storyPage.css'
 import '../../styles/zhihu.css'
 
-import zhihu from '../../services/zhihu'
+import { getStory } from '../../redux/action'
 import proxy from '../../services/proxy'
 import ProxyImage from '../Common/ProxyImage'
 import Header from '../Header'
 
 const propTypes = {
+  dispatch: React.PropTypes.func,
   params: React.PropTypes.object,
+  story: React.PropTypes.object,
 }
 
 const SRCREGEX = /(<img [^>]*src=['"])([^'"]+)([^>]*>)/gi
 
 class StoryPage extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = { story: {} }
-  }
 
   componentWillMount() {
     const { storyid } = this.props.params
 
-    zhihu.getStory(storyid).then((data) => {
-      this.setState({ story: data })
-    })
+    this.props.dispatch(getStory(storyid))
   }
 
   parse(html = '') {
@@ -40,11 +36,11 @@ class StoryPage extends React.Component {
 
   render() {
     const { storyid } = this.props.params
-    const { title, image, image_source: imageSource, comments } = this.state.story
-    const body = this.parse(this.state.story.body)
+    const { title, image, image_source: imageSource, comments } = this.props.story
+    const body = this.parse(this.props.story.body)
 
     return (
-      <article>
+      <article className="sotry-page">
         <Header className={styles.header} showBack>
           <Link to={`/comment/${storyid}`}>
             <span className={styles.commentIcon}></span>{comments || '...'}
@@ -67,4 +63,7 @@ class StoryPage extends React.Component {
 
 StoryPage.propTypes = propTypes
 
-export default StoryPage
+export default connect((state) => {
+  const { story } = state
+  return { story }
+})(StoryPage)

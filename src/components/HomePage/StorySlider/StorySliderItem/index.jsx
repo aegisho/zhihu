@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './storySliderItem.css'
-import ProxyImage from '../../Common/ProxyImage'
+import ProxyImage from '../../../Common/ProxyImage'
 
 const propTypes = {
   title: React.PropTypes.string,
