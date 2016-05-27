@@ -33,5 +33,4 @@ CommentPage
 ```
 
 ## TODO Framework
-1. Redux
-2. React-Native
+React-Native
