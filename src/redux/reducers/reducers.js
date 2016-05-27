@@ -22,10 +22,12 @@ export function story(state = {}, action) {
   return result
 }
 
-export function comment(state = [], action) {
+export function comments(state = { longComments: [], shortComments: [] }, action) {
   let result = state
-  if (action.type === 'GET_COMMENT') {
-    result = action.comment
+  if (action.type === 'GET_COMMENTS') {
+    const { longComments, shortComments } = action
+
+    result = { longComments, shortComments }
   }
   return result
 }

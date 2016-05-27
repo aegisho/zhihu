@@ -1,6 +1,5 @@
 import moment from 'moment'
 import port from '../../server/port'
-import cache from './cache'
 
 const DOMAIN = `http://127.0.0.1:${port.api}`
 
@@ -11,8 +10,6 @@ const request = (api) => {
   return fetch(url).then(res => res.json())
 }
 
-const CACHE = true
-// TODO:FIXME: set cache to other file
 const zhihu = {
   getTopStories() {
     return this.getStories().then((data) => data.top_stories)
@@ -22,70 +19,28 @@ const zhihu = {
   },
   getBeforeStories(date) {
     const before = moment(date, FORMAT).add(1, 'days').format(FORMAT)
+
     return request(`/stories/before/${before}`)
   },
   getStories(date) {
-    let result
+    const method = date ? 'getBeforeStories' : 'getLastStories'
 
-    if (CACHE) {
-      const key = date || moment().format(date, FORMAT)
-      const value = cache.get(key)
-
-      if (value) {
-        result = Promise.resolve(value)
-      }
-    }
-
-    if (!result) {
-      const method = date ? 'getBeforeStories' : 'getLastStories'
-
-      result = this[method](date).then((data) => {
-        if (CACHE) {
-          cache.set(data.date, data)
-        }
-
-        return data
-      })
-    }
-
-    return result
+    return this[method](date)
   },
-  getPrevStories: (function getPrevStories() {
-    const date = new Date()
+  getPrevStories() {
+    const date = this.getPrevStories.date = this.getPrevStories.date || new Date()
 
-    return () => {
-      const dateStr = moment(date).format(FORMAT)
-      date.setDate(date.getDate() - 1)
+    const dateStr = moment(date).format(FORMAT)
+    date.setDate(date.getDate() - 1)
 
-      return zhihu.getStories(dateStr)
-    }
-  }()),
+    return this.getStories(dateStr)
+  },
   getStory(id) {
-    let result
-    const key = `Stroy_${id}`
-
-    if (CACHE) {
-      const value = cache.get(key)
-
-      if (value) {
-        result = Promise.resolve(value)
-      }
-    }
-
-    if (!result) {
-      result = request(`/story/${id}`).then((story) =>
+    return request(`/story/${id}`).then((story) =>
         request(`/story-extra/${id}`)
           .then((extra) => Object.assign(story, extra))
           .catch(() => story)
-      ).then((data) => {
-        if (CACHE) {
-          cache.set(key, data)
-        }
-        return data
-      })
-    }
-
-    return result
+      )
   },
   getLongComments(id) {
     return request(`/story/${id}/long-comments`).then((data) => data.comments)

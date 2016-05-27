@@ -1,4 +1,4 @@
-import zhihu from '../services/zhihu'
+import zhihu from '../services/zhihuCache'
 
 export function getTopStories() {
   return (dispatch) =>
@@ -24,19 +24,21 @@ export function getStory(storyid) {
     })
 }
 
-export function getLongComment(storyid) {
+export function removeStory() {
+  return { type: 'GET_STORY', story: {} }
+}
+
+export function getComments(storyid) {
   return (dispatch) =>
-    zhihu.getLongComment(storyid).then((result) => {
-      const data = { type: 'GET_LONG_COMMENT', storyid, longComments: result }
+    Promise.all([
+      zhihu.getLongComments(storyid),
+      zhihu.getShortComments(storyid),
+    ]).then(([longComments, shortComments]) => {
+      const data = { type: 'GET_COMMENTS', longComments, shortComments }
       return dispatch(data)
     })
 }
 
-export function getShortComment(storyid) {
-  return (dispatch) =>
-    zhihu.getShortComment(storyid).then((result) => {
-      const data = { type: 'GET_SHORT_COMMENT', storyid, shortComments: result }
-      return dispatch(data)
-    })
+export function removeComments() {
+  return { type: 'GET_COMMENTS', shortComments: [], longComments: [] }
 }
-

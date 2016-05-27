@@ -6,6 +6,7 @@ A React project fro [zhihu-daily](http://daily.zhihu.com)
 
 ## Build Setup
 ```
+npm install
 npm run dev
 ```
 
@@ -32,5 +33,5 @@ CommentPage
 ```
 
 ## TODO Framework
-1.Redux
-2.React-Native
+1. Redux
+2. React-Native

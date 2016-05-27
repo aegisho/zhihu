@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import styles from './storyPage.css'
 import '../../styles/zhihu.css'
 
-import { getStory } from '../../redux/action'
+import { getStory, removeStory } from '../../redux/action'
 import proxy from '../../services/proxy'
 import ProxyImage from '../Common/ProxyImage'
 import Header from '../Header'
@@ -21,9 +21,15 @@ const SRCREGEX = /(<img [^>]*src=['"])([^'"]+)([^>]*>)/gi
 class StoryPage extends React.Component {
 
   componentWillMount() {
-    const { storyid } = this.props.params
+    const { dispatch, params: { storyid } } = this.props
 
-    this.props.dispatch(getStory(storyid))
+    dispatch(getStory(storyid))
+  }
+
+  componentWillUnmount() {
+    const { dispatch } = this.props
+
+    dispatch(removeStory())
   }
 
   parse(html = '') {

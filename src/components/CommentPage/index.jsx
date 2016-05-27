@@ -1,38 +1,30 @@
 import React from 'react'
-
-import zhihu from '../../services/zhihu'
+import { connect } from 'react-redux'
 
 import Header from '../Header'
 import CommentList from './CommentList'
+import { getComments, removeComments } from '../../redux/action'
 
 const propTypes = {
+  dispatch: React.PropTypes.func,
+  comments: React.PropTypes.object,
   params: React.PropTypes.object,
 }
 
 class CommentPage extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      longComments: [],
-      shortComments: [],
-    }
+  componentDidMount() {
+    const { dispatch, params: { storyid } } = this.props
+    dispatch(getComments(storyid))
   }
 
-  componentDidMount() {
-    const { storyid } = this.props.params
+  componentWillUnmount() {
+    const { dispatch } = this.props
 
-    zhihu.getLongComments(storyid).then((longComments) => {
-      this.setState({ longComments })
-    })
-
-    zhihu.getShortComments(storyid).then((shortComments) => {
-      this.setState({ shortComments })
-    })
+    dispatch(removeComments())
   }
 
   render() {
-    const { longComments, shortComments } = this.state
+    const { longComments, shortComments } = this.props.comments
 
     const longCommentsLength = longComments.length
     const shortCommentsLength = shortComments.length
@@ -53,4 +45,7 @@ class CommentPage extends React.Component {
 
 CommentPage.propTypes = propTypes
 
-export default CommentPage
+export default connect((state) => {
+  const { comments } = state
+  return { comments }
+})(CommentPage)
