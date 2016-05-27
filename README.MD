@@ -31,6 +31,3 @@ CommentPage
      └─CommentItem*
 
 ```
-
-## TODO Framework
-React-Native

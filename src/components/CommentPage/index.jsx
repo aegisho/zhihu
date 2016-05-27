@@ -7,7 +7,10 @@ import { getComments, removeComments } from '../../redux/action'
 
 const propTypes = {
   dispatch: React.PropTypes.func,
-  comments: React.PropTypes.object,
+  comments: React.PropTypes.shape({
+    longComments: React.PropTypes.array,
+    shortComments: React.PropTypes.array,
+  }),
   params: React.PropTypes.object,
 }
 
